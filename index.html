@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Decimal Time</title>
+  <title>Decimal Unix Time</title>
+  <style>
+    body { font-family: Arial, sans-serif; font-size: 2em; text-align: center; margin-top: 20%; }
+  </style>
 </head>
 <body>
-  <h1>Decimal Time</h1>
-  <p id="decimalTime"></p>
+  <div>Decimal Unix Time:</div>
+  <div id="decimalTime"></div>
 
   <script>
     function updateDecimalTime() {
-      const now = Date.now() / 1000; // Unix time in seconds
-      const decimalSeconds = (now % 86400) * (100000 / 86400);
-      document.getElementById("decimalTime").innerText = decimalSeconds.toFixed(2);
+      const now = Date.now(); // milliseconds since 1970-01-01
+      const unixTime = now / 1000; // convert to seconds
+      const decimalUnixTime = unixTime * (100000 / 86400); // apply conversion
+      document.getElementById("decimalTime").textContent = decimalUnixTime.toFixed(2);
     }
 
-    setInterval(updateDecimalTime, 1000);
-    updateDecimalTime();
+    setInterval(updateDecimalTime, 100); // update every 0.1s
+    updateDecimalTime(); // initial call
   </script>
 </body>
 </html>
