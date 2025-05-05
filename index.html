@@ -1,26 +1,59 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Decimal Unix Time</title>
   <style>
-    body { font-family: Arial, sans-serif; font-size: 2em; text-align: center; margin-top: 20%; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 20%;
+    }
+    #decimalTime {
+      font-size: 3em;
+      font-weight: bold;
+    }
+    #unixTime {
+      font-size: 1em;
+      color: gray;
+      margin-top: 0.5em;
+    }
+    #copyButton {
+      margin-top: 1em;
+      padding: 0.5em 1em;
+      font-size: 1em;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <div>Decimal Unix Time:</div>
-  <div id="decimalTime"></div>
+  <div id="decimalTime">Loading...</div>
+  <div id="unixTime"></div>
+  <button id="copyButton">Copy Decimal Time</button>
 
   <script>
     const DECIMAL_CONVERSION_FACTOR = 100000 / 86400;
+    let currentDecimalTime = 0;
 
-    function updateDecimalTime() {
-      const unixTimeSeconds = Math.floor(Date.now() / 1000); // standard Unix time in seconds
-      const decimalUnixTime = unixTimeSeconds * DECIMAL_CONVERSION_FACTOR;
-      document.getElementById("decimalTime").textContent = decimalUnixTime.toFixed(0);
+    function updateTime() {
+      const unixTime = Math.floor(Date.now() / 1000);
+      currentDecimalTime = Math.floor(unixTime * DECIMAL_CONVERSION_FACTOR);
+
+      document.getElementById("decimalTime").textContent = currentDecimalTime;
+      document.getElementById("unixTime").textContent = `Unix Time: ${unixTime}`;
     }
 
-    setInterval(updateDecimalTime, 1000); // update every second
-    updateDecimalTime(); // initial call
+    document.getElementById("copyButton").addEventListener("click", () => {
+      navigator.clipboard.writeText(currentDecimalTime).then(() => {
+        document.getElementById("copyButton").textContent = "Copied!";
+        setTimeout(() => {
+          document.getElementById("copyButton").textContent = "Copy Decimal Time";
+        }, 1500);
+      });
+    });
+
+    setInterval(updateTime, 1000);
+    updateTime();
   </script>
 </body>
 </html>
