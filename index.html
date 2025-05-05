@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Decimal Time</title>
+</head>
+<body>
+  <h1>Decimal Time</h1>
+  <p id="decimalTime"></p>
+
+  <script>
+    function updateDecimalTime() {
+      const now = Date.now() / 1000; // Unix time in seconds
+      const decimalSeconds = (now % 86400) * (100000 / 86400);
+      document.getElementById("decimalTime").innerText = decimalSeconds.toFixed(2);
+    }
+
+    setInterval(updateDecimalTime, 1000);
+    updateDecimalTime();
+  </script>
+</body>
+</html>
