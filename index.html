@@ -11,14 +11,15 @@
   <div id="decimalTime"></div>
 
   <script>
+    const DECIMAL_CONVERSION_FACTOR = 100000 / 86400;
+
     function updateDecimalTime() {
-      const now = Date.now(); // milliseconds since 1970-01-01
-      const unixTime = now / 1000; // convert to seconds
-      const decimalUnixTime = unixTime * (100000 / 86400); // apply conversion
-      document.getElementById("decimalTime").textContent = decimalUnixTime.toFixed(2);
+      const unixTimeSeconds = Math.floor(Date.now() / 1000); // standard Unix time in seconds
+      const decimalUnixTime = unixTimeSeconds * DECIMAL_CONVERSION_FACTOR;
+      document.getElementById("decimalTime").textContent = decimalUnixTime.toFixed(0);
     }
 
-    setInterval(updateDecimalTime, 100); // update every 0.1s
+    setInterval(updateDecimalTime, 1000); // update every second
     updateDecimalTime(); // initial call
   </script>
 </body>
